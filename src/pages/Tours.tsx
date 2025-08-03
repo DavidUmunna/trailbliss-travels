@@ -1,32 +1,36 @@
 import React from "react";
 import Card from "../components/Card";
+import cenyon from "../assets/grandCenyon.jpeg"
+import paris from "../assets/paris.jpg"
+import tokyo from "../assets/tokyo.jpg"
+import Desert from "../assets/DesertSafari.jpg"
 
 const Tours: React.FC = () => {
   const tours = [
     {
       id: 1,
-      image: "/assets/tour_1.jpg",
+      image: cenyon,
       title: "Grand Canyon Adventure",
       description: "Experience the breathtaking views of the Grand Canyon with a guided tour.",
       buttonText: "Book Now",
     },
     {
       id: 2,
-      image: "/assets/tour_2.jpg",
+      image: Desert,
       title: "Dubai Desert Safari",
       description: "Enjoy an unforgettable desert safari with dune bashing and cultural experiences.",
       buttonText: "Book Now",
     },
     {
       id: 3,
-      image: "/assets/tour_3.jpg",
+      image: tokyo,
       title: "Tokyo City Tour",
       description: "Explore the vibrant city of Tokyo with a full-day guided tour.",
       buttonText: "Book Now",
     },
     {
       id: 4,
-      image: "/assets/tour_4.jpg",
+      image: paris,
       title: "Paris Romantic Getaway",
       description: "Discover the romance of Paris with a private tour of the city's iconic landmarks.",
       buttonText: "Book Now",

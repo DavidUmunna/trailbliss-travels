@@ -1,23 +1,25 @@
 import React from "react";
 import Card from "../components/Card";
-
+import USA from "../assets/usa.jpg"
+import dubai from "../assets/dubai.jpg"
+import japan from "../assets/japan.jpeg"
 const Destinations: React.FC = () => {
   const destinations = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080", // New USA image
+      image: USA, // New USA image
       title: "USA",
       description: "Explore the vibrant cities and stunning landscapes of the USA.",
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1586772004900-5c6f6d1d1f8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080", // New Dubai image
+      image: dubai,
       title: "Dubai",
       description: "Discover the luxury and culture of Dubai.",
     },
     {
       id: 3,
-      image: "https://images.unsplash.com/photo-1549692520-acc6669e2f0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080", // Traditional Japan scenery
+      image: japan, // Traditional Japan scenery
       title: "Japan",
       description: "Experience the beauty and tradition of Japan.",
     },
