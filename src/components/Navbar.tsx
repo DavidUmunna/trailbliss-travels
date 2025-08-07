@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
   const Fabars=FaBars as React.ElementType
   
   return (
-    <nav className="bg-blue-900 text-white py-4">
+    <nav className="fixed top-0 left-0 right-0 bg-blue-900 text-white py-4  ">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-2xl font-bold ml-3">
           <img src={require("../assets/travel.png")} alt="Logo" className="inline-block h-8 mr-2" />
@@ -46,7 +46,9 @@ const Navbar: React.FC = () => {
               const Icon=item.icon as React.ElementType
             return (
               
-              <li key={item.id}>
+              <li key={item.id}
+              className="mx-2"
+              >
 
               <Link
                           
@@ -89,7 +91,7 @@ const Navbar: React.FC = () => {
                 <Link
                   key={item.id}
                   to={item.to}
-                  className=" cursor-pointer block px-3 py-2 rounded-md text-base font-medium text-white items-end hover:text-indigo-600  hover:bg-gray-50 "
+                  className=" cursor-pointer block px-3 py-2 rounded-md text-base bg-gray-700 font-medium text-white items-end hover:bg-gray-400 transition-colors duration-200 focus:outline-none"
                 
                 
                 >
