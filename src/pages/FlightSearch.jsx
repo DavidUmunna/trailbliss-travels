@@ -15,6 +15,8 @@ const FlightSearchForm = ({ onSearch }) => {
   const [nonStop, setNonStop] = useState(false);
   const [airportSuggestions, setAirportSuggestions] = useState([]);
   const [suggestionsVisible, setSuggestionsVisible] = useState(false);
+  const [FromFeild, setFromFeild]=useState(false)
+  const [ToFeild, setToFeild]=useState(false)
   
  const cabinClasses = [
   { value: 'ECONOMY', label: 'Economy' },
@@ -37,6 +39,20 @@ const FlightSearchForm = ({ onSearch }) => {
     return date.toISOString().split('T')[0];
   };
 
+  const handlefromfeild=()=>{
+    setFromFeild(true)
+    setToFeild(false)
+    setAirportSuggestions([])
+
+  }
+
+  const handleTofeild=()=>{
+    setToFeild(true)
+    setFromFeild(false)
+    setAirportSuggestions([])
+
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSearching(true)
@@ -47,7 +63,7 @@ const FlightSearchForm = ({ onSearch }) => {
       departureDate,
       returnDate: tripType === 'round' ? returnDate : null,
       passengers,
-      cabinClass,
+      cabinClass:cabinClass.toUpperCase(),
       nonStop
     };
     
@@ -61,7 +77,7 @@ const FlightSearchForm = ({ onSearch }) => {
         setIsSearching(false)
     }
   };
-
+  
   const swapLocations = () => {
     const temp = from;
     setFrom(to);
@@ -74,10 +90,10 @@ const FlightSearchForm = ({ onSearch }) => {
       return;
     }
    
-    const AMADEUS_API_URL=process.env.REACT_APP_AMADEUS_API_SECRET 
+
     try {
       const token = await getAccessToken();
-      const response = await axios.get(`${AMADEUS_API_URL}/reference-data/locations`, {
+      const response = await axios.get(`${"https://test.api.amadeus.com/v1"}/reference-data/locations`, {
         headers: {
           'Authorization': `Bearer ${token}`
         },
@@ -144,6 +160,7 @@ const FlightSearchForm = ({ onSearch }) => {
               setFrom(e.target.value);
               handleAirportSearch(e.target.value, 'from');
             }}
+            onClick={handlefromfeild}
             onFocus={() => setSuggestionsVisible(true)}
             required
           />
@@ -159,7 +176,7 @@ const FlightSearchForm = ({ onSearch }) => {
               </svg>
             </button>
           </div>
-          {suggestionsVisible && airportSuggestions.length > 0 && (
+          {(suggestionsVisible && airportSuggestions.length > 0 && FromFeild===true) && (
             <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-lg border border-gray-200">
               {airportSuggestions.map((airport, index) => (
                 <div
@@ -189,10 +206,11 @@ const FlightSearchForm = ({ onSearch }) => {
               setTo(e.target.value);
               handleAirportSearch(e.target.value, 'to');
             }}
+            onClick={handleTofeild}
             onFocus={() => setSuggestionsVisible(true)}
             required
           />
-          {suggestionsVisible && airportSuggestions.length > 0 && (
+          {(suggestionsVisible && airportSuggestions.length > 0 && ToFeild===true )&& (
             <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-lg border border-gray-200">
               {airportSuggestions.map((airport, index) => (
                 <div

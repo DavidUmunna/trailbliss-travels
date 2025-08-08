@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const AMADEUS_API_KEY = process.env.REACT_APP_AMADEUS_API_KEY;
-const AMADEUS_API_SECRET = process.env.REACT_APP_AMADEUS_API_SECRET;
-const AMADEUS_API_URL = 'https://test.api.amadeus.com/v2';
+
+
 
 let accessToken = null;
 let tokenExpiration = null;
@@ -11,7 +10,8 @@ export async function getAccessToken() {
   if (accessToken && tokenExpiration && new Date() < tokenExpiration) {
     return accessToken;
   }
-
+  const AMADEUS_API_KEY = process.env.REACT_APP_AMADEUS_API_KEY;
+  const AMADEUS_API_SECRET = process.env.REACT_APP_AMADEUS_API_SECRET;
   try {
     const response = await axios.post('https://test.api.amadeus.com/v1/security/oauth2/token', 
       `grant_type=client_credentials&client_id=${AMADEUS_API_KEY}&client_secret=${AMADEUS_API_SECRET}`,
@@ -67,8 +67,7 @@ export async function searchFlights(params) {
             }
           ],
           carrierRestrictions: {
-            excludedCarrierCodes: [],
-            includedCarrierCodes: []
+
           }
         }
       }
@@ -97,7 +96,7 @@ export async function searchFlights(params) {
       };
     }
 
-    const response = await axios.post(`${AMADEUS_API_URL}/shopping/flight-offers`, requestBody, {
+    const response = await axios.post(`${'https://test.api.amadeus.com/v2'}/shopping/flight-offers`, requestBody, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'

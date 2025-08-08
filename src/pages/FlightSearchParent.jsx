@@ -3,12 +3,16 @@ import FlightSearchForm from "./FlightSearch";
 import SearchResults from "./SearchResults";
 function FlightSearchParent() {
   const [searchResults, setSearchResults] = useState(null);
-
+  console.log("search results",searchResults)
   return (
-    <div className="p-7">
+    <div className="p-10 mt-10">
+      <div className="mb-5">
+
       <FlightSearchForm 
-        onResults={(results) => setSearchResults(results)} 
-      />
+        onSearch={(results) => setSearchResults(results)} 
+        
+        />
+      </div>
       
       {searchResults && (
         <SearchResults results={searchResults} />

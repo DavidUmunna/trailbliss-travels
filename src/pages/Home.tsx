@@ -1,13 +1,26 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import Card from "../components/Card";
 import travelImage from "../assets/travel_1.jpg";
 import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
   const navigate=useNavigate()
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    // Trigger fade-in once the image has loaded
+    const img = new Image();
+    img.src = travelImage;
+    img.onload = () => setLoaded(true);
+  }, []);
   return (
     <div>
-      <section className="bg-cover bg-center h-screen" style={{ backgroundImage: `url(${travelImage})` }}>
+     <section
+      className={`bg-cover bg-center h-screen transition-opacity duration-1000 ease-in-out ${
+        loaded ? "opacity-100" : "opacity-0"
+      }`}
+      style={{ backgroundImage: `url(${travelImage})` }}
+    >
         <div className="flex flex-col items-center justify-center h-full text-white text-center">
           <h1 className="text-5xl font-bold mb-4">TrailBliss Travels</h1>
           <p className="text-xl mb-6">The Experience starts with the journey</p>
