@@ -12,8 +12,6 @@ export async function getAccessToken() {
   }
   const AMADEUS_API_KEY = process.env.REACT_APP_API_KEY;
   const AMADEUS_API_SECRET = process.env.REACT_APP_API_SECRET;
-  console.log(process.env);
-  console.log(process.env.REACT_APP_API_SECRET);
 
   try {
     const response = await axios.post('https://test.api.amadeus.com/v1/security/oauth2/token', 
@@ -27,8 +25,9 @@ export async function getAccessToken() {
 
     accessToken = response.data.access_token;
     tokenExpiration = new Date();
-    tokenExpiration.setSeconds(tokenExpiration.getSeconds() + response.data.expires_in);
-    
+    // Subtract a buffer so a token that's about to expire isn't reused mid-request
+    tokenExpiration.setSeconds(tokenExpiration.getSeconds() + response.data.expires_in - 30);
+
     return accessToken;
   } catch (error) {
     console.error('Error getting Amadeus access token:', error);
@@ -99,7 +98,8 @@ export async function searchFlights(params) {
       };
     }
 
-    const response = await axios.post(`${process.env.REACT_APP_URL}/shopping/flight-offers`, requestBody, {
+    const baseUrl = process.env.REACT_APP_URL || 'https://test.api.amadeus.com/v2';
+    const response = await axios.post(`${baseUrl}/shopping/flight-offers`, requestBody, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -145,7 +145,7 @@ function formatAmadeusResponse(data, searchParams) {
           },
           airline: segment.carrierCode,
           flightNumber: segment.number,
-          duration: segment.duration,
+          duration: formatDuration(segment.duration),
           aircraft: segment.aircraft?.code
         })),
         cabinClass: searchParams.cabinClass
